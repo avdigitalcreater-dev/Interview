@@ -1,0 +1,89 @@
+### **Part A: Basic Operations**
+
+1. Load the CSV file into a PySpark DataFrame with inferred schema. Show the schema.
+2. Display the first 10 rows using `.show()`.
+3. Print the total number of rows and columns in the dataset.
+4. Display only the columns `id`, `season`, and `city`.
+5. Rename the column `id` to `match_id`.
+
+### **Part B: Data Cleaning & Transformation**
+
+6. Find and count the number of null values in each column.
+7. Replace missing values in the `city` column with `"Unknown"`.
+8. Create a new column named `match_decade` which extracts the decade from the `season` column (e.g., 2010 → "2010s").
+9. Drop duplicates (if any) based on `id`.
+10. Drop the column `umpire3` from the dataset.
+
+---
+
+### **Part C: Filtering & Selecting**
+
+11. Select all matches played in `"Mumbai"`.
+12. Filter matches where the `season` is greater than 2015.
+13. Show all matches won by `"Mumbai Indians"`.
+14. Find all matches where `dl_applied` = 1.
+15. Show matches where the toss winner also won the match.
+
+---
+
+### **Part D: Aggregations & Grouping**
+
+16. Find the total number of matches played in each season.
+17. Find the city that hosted the maximum number of matches.
+18. Count the number of matches won by each team.
+19. Find the team that has won the most tosses.
+20. For each venue, find the number of matches played there.
+
+---
+
+### **Part E: Sorting & Ordering**
+
+21. List the top 10 venues by the number of matches played.
+22. Sort matches by season in descending order.
+23. Show the first 5 matches played in `"Delhi"` sorted by `date`.
+
+---
+
+### **Part F: Joins & Unions**
+
+*(You can duplicate the DataFrame for practice)*
+24\. Perform a **self-join** of the dataset on the column `season`.
+25\. Create a small DataFrame with only `match_id` and `winner`, and join it with the main DataFrame.
+26\. Union two DataFrames: one containing matches from 2008–2012, and another from 2013–2017.
+
+---
+
+### **Part G: Advanced Operations**
+
+27. Create a pivot table of seasons vs. winners, showing the count of matches won.
+28. Write a UDF to return `"Yes"` if the toss winner = match winner, else `"No"`. Add this as a new column.
+29. Sample 10% of the matches randomly using `.sample()`.
+30. Partition the dataset by `season` and save it in Parquet format.
+
+---
+
+### **Part H: RDD Operations**
+
+31. Convert the DataFrame to an RDD and print the first 5 rows.
+32. Use `.map()` to extract only the `winner` column values.
+33. Use `.flatMap()` to split all team names into individual words.
+34. Use `.foreach()` to print all match IDs.
+
+---
+
+### **Part I: Extra Challenges**
+
+35. Find the most successful team (highest match wins) in IPL history from the dataset.
+36. Find the toss decision (`bat`/`field`) that led to more wins.
+37. Identify which umpire has officiated the most matches.
+38. Find the top 3 rivalries (two teams that have played most matches against each other).
+39. Which team has the highest win percentage in finals (season-ending matches)?
+40. Which season had the closest matches (decided by smallest margins)?
+
+---
+
+:white_check_mark: Total: **40 Questions**
+
+---
+
+Would you like me to also **categorize them into Easy / Medium / Hard** levels for a more structured assignment?
