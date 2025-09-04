@@ -1,0 +1,87 @@
+---
+
+# 📘 Notes: Spark – Partition, Transformation, Action, Lazy Evaluation & Spark Session
+---
+
+## 🔹 Partition
+
+* Spark breaks input data into **chunks called partitions**.
+* Partitions allow executors to work in parallel.
+* **Analogy:** Bag of marbles split into pouches → each pouch = partition.
+* Example: If there are 4 partitions, Spark can run 4 tasks in parallel.
+* **Benefit:** Enables **parallel processing**.
+
+---
+
+## 🔹 Transformations
+
+* **Definition:** Instructions/code applied to modify or transform data.
+* Examples: `select`, `where`, `groupBy`.
+* Transformations help Spark build a **logical plan** (computational graph).
+
+### Types of Transformations:
+
+1. **Narrow Transformation**
+
+   * Each input partition contributes to at most one output partition.
+   * Example: `map`, `filter`.
+
+2. **Wide Transformation**
+
+   * One input partition contributes to **multiple output partitions**.
+   * Requires **data shuffle** (movement of data across partitions).
+   * Example: `groupBy`, `reduceByKey`.
+   * **Wide transformation ⇒ Shuffle ⇒ Stage boundary.**
+
+---
+
+## 🔹 Actions
+
+* Trigger the execution of the transformations/logical plan.
+* Without an action, transformations won’t be executed.
+
+### Types of Actions:
+
+1. **View data** in console → e.g., `.show()`.
+2. **Collect data** to native language (driver) → e.g., `.collect()`.
+3. **Write data** to output sources → e.g., `.write()`.
+
+---
+
+## 🔹 Lazy Evaluation
+
+* Spark waits until an **action** is called to execute transformations.
+* Transformations only **build a logical plan (DAG)**, not executed immediately.
+
+### Why Lazy Evaluation?
+
+* Allows Spark to **optimize execution** and plan resources efficiently.
+* Prevents unnecessary computations.
+
+**Analogy (Sandwich Shop):**
+
+* If you start making a white bread sandwich immediately but the customer later asks for brown bread → waste of resources.
+* Instead, wait for final confirmation (action = payment), then prepare efficiently.
+* Similarly, Spark waits until action is triggered to execute transformations.
+
+---
+
+## 🔹 Spark Session
+
+* **Definition:** Entry point to Spark execution.
+* Represents the **driver process** of a Spark application.
+* Responsible for running code on the cluster.
+* **One Spark Application = One Spark Session.**
+* Provides unified access to Spark features: DataFrame, Dataset, SQL, RDD.
+
+---
+
+## 🔹 Summary
+
+1. **Partition:** Breaks data into chunks for parallel execution.
+2. **Transformation:** Logical instructions (`map`, `filter`, `groupBy`). Two types → Narrow & Wide.
+3. **Action:** Triggers execution of transformations.
+4. **Lazy Evaluation:** Spark delays execution until an action is called → enables optimization.
+5. **Spark Session:** Entry point for Spark; represents the driver process.
+
+---
