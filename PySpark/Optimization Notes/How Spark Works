@@ -1,0 +1,97 @@
+# 📘 Notes: How Spark Works
+
+## 🔹 Key Concepts in Spark
+
+* **Driver**
+* **Executors**
+* **Job, Stages, and Tasks**
+* **Shuffle (data exchange between executors)**
+
+## 🔹 Example (Marble Counting Analogy)
+
+* **Instructor (Driver):** assigns tasks and collects results.
+* **Groups of People (Executors):** perform the actual work.
+* **Job:** Count the total number of marbles.
+* **Tasks:** Each executor counts marbles in its pouch.
+* **Stages:**
+
+  * **Local stage:** Executors count marbles in their pouch.
+  * **Global stage:** Aggregator collects results and sums them up.
+* **Shuffle:** Exchange of intermediate results (marble counts) from executors to aggregator.
+
+**Outcome:** Work is divided into tasks, executed in stages, and combined to get the final result.
+---
+
+## 🔹 Shuffle in Spark
+
+* Shuffle = Redistribution of data across executors.
+* Acts as a **boundary between stages**.
+* Whenever a shuffle happens → job is split into multiple stages.
+* Example:
+
+  * Local counts = first stage.
+  * Global aggregation = second stage.
+
+---
+
+## 🔹 Components of Spark
+
+### 1. **Driver**
+
+* Heart of a Spark application.
+* Responsibilities:
+
+  * Maintains information required for executors.
+  * Analyzes, distributes, and schedules work.
+  * Collects results from executors.
+
+### 2. **Executors**
+
+* JVM processes running on cluster nodes.
+* Responsibilities:
+
+  * Execute the assigned tasks.
+  * Respond to driver with execution status.
+
+---
+
+## 🔹 Jobs, Stages, and Tasks
+
+* **Job:** The complete work submitted by the user.
+* **Stage:** Logical divisions within a job (created by shuffle boundaries).
+* **Task:** Smallest unit of work performed by executors.
+
+---
+
+## 🔹 Parallelism in Spark
+
+* Executors run on cluster machines, each with multiple cores.
+* **One core = One task at a time.**
+* Example:
+
+  * 3 executors × 2 cores each = 6 cores total.
+  * 6 tasks can run in parallel.
+* This parallel execution gives Spark its speed and scalability.
+
+---
+
+## 🔹 Summary
+
+1. User assigns a **job** → sent to the **driver**.
+2. Driver analyzes the job, breaks it into **stages** and **tasks**.
+3. Tasks are distributed to **executors**.
+4. Executors execute tasks and send results back to driver.
+5. **Shuffle** occurs when data is exchanged between executors, marking stage boundaries.
+6. Spark achieves performance through **parallelism (multiple tasks executed at once)**.
+
+---
+
+✅ Next topics to explore:
+
+* Execution Plan
+* Spark Session
+* Spark Context
+
+---
+
+Would you like me to also make a **diagram/flowchart** of this workflow (Driver → Stages → Executors → Tasks → Shuffle) for your notes?
