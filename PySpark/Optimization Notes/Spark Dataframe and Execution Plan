@@ -1,0 +1,79 @@
+# 📘 Notes: Spark DataFrames & Execution Planning
+---
+
+## 🔹 What are Spark DataFrames?
+
+* **Definition:** High-level structured API in Spark (built on top of RDDs).
+* **Looks like:** A table with rows and columns.
+* **Schema:** Each column has its own metadata (name, type, etc.).
+* **Immutable:** Once created, a DataFrame cannot be modified.
+
+  * Instead, transformations create **new DataFrames**.
+  * Example:
+
+    * DF1 = employee data.
+    * DF2 = filter salary > 10,000.
+    * DF3 = select only name, deptId, salary.
+
+---
+
+## 🔹 Transformations on DataFrames
+
+* Transformations can be applied **one by one** (creating multiple DataFrames)
+  or via **cascading** (chaining multiple transformations in a single command).
+* Example: `df.filter(...).select(...)`
+
+---
+
+## 🔹 Data Partitions in DataFrames
+
+* Data in a DataFrame is stored in **partitions**.
+* When an **action** is triggered:
+
+  * Partitions are distributed across cluster nodes.
+  * Each **task** runs on a partition → enables **parallel execution**.
+* Example: 4 partitions → 4 tasks run in parallel.
+* **Reason:** Spark keeps data in partitions to leverage parallelism.
+
+---
+
+## 🔹 Spark Execution Planning for Structured APIs
+
+Execution is divided into **two phases**:
+
+### 1. Logical Execution Planning
+
+* **Step 1:** User code → Unresolved Logical Plan.
+* **Step 2:** Validate against catalog (check column & table names).
+* **Step 3:** Create **Resolved Logical Plan**.
+* **Step 4:** Catalyst Optimizer optimizes the plan.
+* **Step 5:** Generates **Optimized Logical Plan (final logical DAG)**.
+
+---
+
+### 2. Physical Execution Planning
+
+* Spark generates **multiple physical plans** (based on cluster configuration).
+* Each plan is evaluated using a **cost model**.
+* Best physical plan is selected.
+* Chosen plan is sent to executors → executed on partitions.
+
+---
+
+## 🔹 DAG (Directed Acyclic Graph)
+
+* Represents the execution workflow.
+* Consists of **stages connected by arrows**.
+* Spark uses DAG to track dependencies and execution steps.
+* DAG ensures a job is executed in the correct sequence of transformations & actions.
+
+---
+
+## 🔹 Summary
+
+1. **DataFrames:** Table-like, schema-based, immutable, built on RDDs.
+2. **Transformations:** Create new DataFrames; can be chained.
+3. **Partitions:** Enable parallel processing of tasks.
+4. **Logical Plan:** Unresolved → Resolved → Optimized via Catalyst Optimizer.
+5. **Physical Plan:** Multiple candidates → best plan selected using cost model.
+6. **DAG:** Execution roadmap ensuring correct sequence of stages & tasks.
